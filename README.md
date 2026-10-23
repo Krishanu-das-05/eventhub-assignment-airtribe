@@ -161,7 +161,7 @@ The event now has `"available_seats": 498`.
   "event": 1,
   "attendee_name": "Rahul Verma",
   "attendee_email": "rahul@example.com",
-  "seats_reserved": 600
+  "seats_reserved": 499
 }
 ```
 
@@ -219,3 +219,7 @@ I deduct the seats and create the reservation inside the same `create()` method 
 1. Reservation created (201): ![Reservation 201](docs/screenshots/01-reservation-201.png)
 2. Overbooking attempt (400): ![Overbooking 400](docs/screenshots/02-overbooking-400.png)
 3. Reservation cancelled (200): ![Cancellation 200](docs/screenshots/03-cancellation-200.png)
+4. Event created (201): ![Create event 201](docs/screenshots/04-create-event-201.png)
+5. Event after the reservation, 498 seats left (200): ![Event after reservation](docs/screenshots/05-event-after-reservation-200.png)
+6. Event after the cancellation, 500 seats again (200): ![Event after cancellation](docs/screenshots/06-event-after-cancellation-200.png)
+7. List of events (200): ![Events list](docs/screenshots/07-events-list-200.png)
