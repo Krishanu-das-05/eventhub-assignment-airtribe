@@ -54,6 +54,12 @@ EventHub is a simple REST API for event ticketing. You can create events, reserv
 
 The base URL of the API is: **http://127.0.0.1:8000/api/**
 
+To run the automated tests:
+
+```bash
+python manage.py test
+```
+
 You can open this URL in a browser to use the Django REST Framework browsable API, or use a tool like Postman.
 
 The secret key is read from the `DJANGO_SECRET_KEY` environment variable. You do not need to set it for local development: if it is missing, a random key is made each time the server starts.
@@ -73,10 +79,14 @@ The secret key is read from the `DJANGO_SECRET_KEY` environment variable. You do
 | GET | `/api/reservations/{id}/` | Get one reservation |
 | PUT | `/api/reservations/{id}/` | Update a reservation (all fields) |
 | PATCH | `/api/reservations/{id}/` | Update some fields of a reservation |
-| DELETE | `/api/reservations/{id}/` | Delete a reservation |
+| DELETE | `/api/reservations/{id}/` | Delete a reservation (its seats go back to the event if it was confirmed) |
 | POST | `/api/reservations/{id}/cancel/` | Cancel a reservation and give the seats back to the event |
 
-Note: to free the seats of a reservation, use the `cancel` endpoint. Deleting a reservation does not give the seats back.
+Notes on updating a reservation with PUT or PATCH:
+
+- If you change `seats_reserved`, the event's `available_seats` changes by the difference. Asking for more seats than are left gives `400 Bad Request`.
+- A reservation cannot be moved to another event.
+- You cannot change the seats of a cancelled reservation.
 
 ### Filters
 
