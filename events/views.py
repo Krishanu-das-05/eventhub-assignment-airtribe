@@ -30,6 +30,12 @@ class ReservationViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(event_id=event_id)
         return queryset
 
+    def perform_destroy(self, instance):
+        if instance.status == 'confirmed':
+            instance.event.available_seats += instance.seats_reserved
+            instance.event.save()
+        instance.delete()
+
     @action(detail=True, methods=['post'])
     def cancel(self, request, pk=None):
         reservation = self.get_object()
